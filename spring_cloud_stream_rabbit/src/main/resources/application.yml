@@ -1,0 +1,38 @@
+server:
+  port: 8884
+
+spring:
+  #  rabbitmq:
+  #    host: 192.168.3.49
+  #    port: 5672
+  #    username: eric
+  #    password: 123456
+  #    virtual-host: eric
+
+  cloud:
+    stream:
+      bindings:
+        example-topic-output:
+          destination: delay-topic
+          binder: local_rabbit
+        example-topic-input:
+          destination: delay-topic
+          group: group
+          binder: local_rabbit
+        rabbit:
+          bindings:
+            example-topic-output.producer:
+              delayed-exchange: true
+            example-topic-input.consumer:
+              delayed-exchange: true
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 192.168.3.49
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /

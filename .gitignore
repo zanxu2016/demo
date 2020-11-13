@@ -1,0 +1,5 @@
+# Project exclude paths
+/core/target/
+/mq/target/
+/schedule-task/target/
+/spring_cloud_stream_rabbit/target/
