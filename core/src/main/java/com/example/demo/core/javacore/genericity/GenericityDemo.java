@@ -30,11 +30,34 @@ public class GenericityDemo {
     public void reflectInvokeTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(1);
-        list.getClass().getMethod("add", Object.class).invoke(list, "aaa");
+        list.getClass().getMethod("add", Object.class).invoke(list, "aaa");// Integer类型在编译后被擦除，只保留原始类型Object
 
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
+    }
+
+    @Test
+    public void initArray() {
+        List<?>[] lsa = new ArrayList<?>[10];
+        Object o = lsa;
+        Object[] oa = (Object[]) o;
+        List<Integer> li = new ArrayList<>();
+        li.add(111);
+        oa[0] = li;
+
+        List<Double> li2 = new ArrayList<>();
+        li2.add(222.0);
+        oa[1] = li2;
+
+        Integer i = (Integer) lsa[0].get(0);
+        Double i2 = (Double) lsa[1].get(0);
+
+        System.out.println(i);
+        System.out.println(i2);
+
+
+
     }
 
 
